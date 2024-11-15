@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faille XSS</title>
+</head>
+<body>
+    <h1>Exemple de faille XSS</h1>
+    <p>Ici, une faille XSS est illustrée. Faites attention aux entrées utilisateur non vérifiées !</p>
+
+    <form method="get" action="{% url 'xss_flaw' %}">
+        <label for="user_input">Entrez un texte :</label>
+        <input type="text" id="user_input" name="user_input">
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <h2>Affichage de l'entrée utilisateur :</h2>
+    <p>{{ user_input|safe }}</p> <!-- Le filtre 'safe' rend le site vulnérable en affichant le contenu sans échappement -->
+    
+    <p>Essayez de saisir un code JavaScript comme : <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> pour voir l'effet.</p>
+</body>
+</html>

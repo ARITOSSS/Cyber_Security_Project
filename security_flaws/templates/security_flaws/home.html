@@ -3,9 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bonjour</title>
+    <title>5 failles OWASP et leur correction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin: 10px 0;
+        }
+        ul li a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        ul li a:hover {
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Bonjour depuis un template Django !</h1>
+    <div class="container">
+        <h1>5 failles OWASP et leur correction</h1>
+        <p>Bonjour depuis un template Django !</p>
+        <ul>
+            <li><a href="{% url 'xss_flaw' %}">Faille XSS</a></li>
+            <li><a href="{% url 'xss_fix' %}">Correction de la faille XSS</a></li>
+        </ul>
+    </div>
 </body>
 </html>

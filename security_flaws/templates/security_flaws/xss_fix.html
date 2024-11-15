@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correction de la faille XSS</title>
+</head>
+<body>
+    <h1>Correction de la faille XSS</h1>
+    <p>Ici, la faille XSS est corrigée. Toutes les entrées utilisateur sont échappées correctement.</p>
+
+    <form method="get" action="{% url 'xss_fix' %}">
+        <label for="user_input">Entrez un texte :</label>
+        <input type="text" id="user_input" name="user_input">
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <h2>Affichage de l'entrée utilisateur :</h2>
+    <p>{{ user_input }}</p> <!-- Django échappe automatiquement le contenu -->
+    
+    <p>Essayez de saisir un code JavaScript comme : <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code>. Il ne s'exécutera pas ici.</p>
+</body>
+</html>
