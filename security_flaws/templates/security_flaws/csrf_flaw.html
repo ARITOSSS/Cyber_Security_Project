@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faille CSRF</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'home' %}" class="back-button">⬅ Retour à l'accueil</a>
+        <h1>Exemple de faille CSRF</h1>
+        <p>Cette page montre une faille CSRF : les requêtes POST peuvent être envoyées sans protection CSRF.</p>
+        
+        <form method="post" action="{% url 'csrf_flaw' %}">
+            <label for="user_data">Entrez des données :</label>
+            <input type="text" id="user_data" name="user_data">
+            <button type="submit">Envoyer</button>
+        </form>
+
+        <p><a href="{% url 'csrf_fix' %}">Voir la correction de cette faille</a></p>
+    </div>
+</body>
+</html>

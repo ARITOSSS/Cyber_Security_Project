@@ -4,20 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faille XSS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            color: #d9534f;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 80%;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 1em;
+            border: none;
+            border-radius: 4px;
+            background-color: #d9534f;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #c9302c;
+        }
+
+        p.code-sample {
+            background-color: #f9f9f9;
+            padding: 10px;
+            font-family: monospace;
+            color: #555;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Exemple de faille XSS</h1>
-    <p>Ici, une faille XSS est illustrée. Faites attention aux entrées utilisateur non vérifiées !</p>
+    <div class="container">
+        <a href="{% url 'home' %}" class="back-button">⬅ Retour à l'accueil</a>
+        <h1>Exemple de faille XSS</h1>
+        <p>Ici, une faille XSS est illustrée. Faites attention aux entrées utilisateur non vérifiées !</p>
 
-    <form method="get" action="{% url 'xss_flaw' %}">
-        <label for="user_input">Entrez un texte :</label>
-        <input type="text" id="user_input" name="user_input">
-        <button type="submit">Envoyer</button>
-    </form>
+        <form method="get" action="{% url 'xss_flaw' %}">
+            <label for="user_input">Entrez un texte :</label>
+            <input type="text" id="user_input" name="user_input">
+            <button type="submit">Envoyer</button>
+        </form>
 
-    <h2>Affichage de l'entrée utilisateur :</h2>
-    <p>{{ user_input|safe }}</p> <!-- Le filtre 'safe' rend le site vulnérable en affichant le contenu sans échappement -->
-    
-    <p>Essayez de saisir un code JavaScript comme : <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> pour voir l'effet.</p>
+        <h2>Affichage de l'entrée utilisateur :</h2>
+        <p>{{ user_input|safe }}</p> 
+        
+        <p>Essayez de saisir un code JavaScript comme :</p>
+        <p class="code-sample">&lt;script&gt;alert("XSS")&lt;/script&gt;</p>
+        <a href="{% url 'xss_fix' %}">Lien vers la correction</a>
+    </div>
 </body>
 </html>

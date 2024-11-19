@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correction CSRF</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'home' %}" class="back-button">⬅ Retour à l'accueil</a>
+        <h1>Correction de la faille CSRF</h1>
+        <p>Cette page est protégée contre la faille CSRF : le formulaire inclut un token CSRF.</p>
+        
+        <form method="post" action="{% url 'csrf_fix' %}">
+            {% csrf_token %}
+            <label for="user_data">Entrez des données :</label>
+            <input type="text" id="user_data" name="user_data">
+            <button type="submit">Envoyer</button>
+        </form>
+
+        <p><a href="{% url 'csrf_flaw' %}">Voir la version vulnérable de cette faille</a></p>
+    </div>
+</body>
+</html>
