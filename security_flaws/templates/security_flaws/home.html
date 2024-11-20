@@ -33,7 +33,7 @@
         /* Grille des failles */
         .grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 20px;
             margin-top: 20px;
         }
@@ -61,16 +61,24 @@
 </head>
 <body>
     <div class="container">
-        <h1>5 failles OWASP et leur correction</h1>
+        <h1>5 OWASP Vulnerabilities and their Fixes</h1>
         <div class="grid">
-            <!-- Faille XSS -->
-            <a href="{% url 'xss_flaw' %}" class="square">Faille XSS</a>
-            <a href="{% url 'csrf_flaw' %}" class="square">Faille CSRF</a>
-            <a href="#" class="square">Faille SQLi</a>
-            <a href="{% url 'xss_fix' %}" class="square">Correction XSS</a>
-            <a href="{% url 'csrf_fix' %}" class="square">Correction CSRF</a>
-            <a href="#" class="square">Correction SQLi</a>
+            <!-- XSS Vulnerability -->
+            <a href="{% url 'xss_flaw' %}" class="square">XSS Vulnerability</a>
+            <a href="{% url 'csrf_flaw' %}" class="square">CSRF Vulnerability</a>
+            <a href="{% url 'sqli_flaw' %}" class="square">SQLi Vulnerability</a>
+            <a href="#" class="square">blabla</a>
+            <a href="#" class="square">bleble</a>
+
+            <a href="{% url 'xss_fix' %}" class="square">XSS Fix</a>
+            <a href="{% url 'csrf_fix' %}" class="square">CSRF Fix</a>
+            <a href="{% url 'sqli_fix' %}" class="square">SQLi Fix</a>
+            <a href="#" class="square">blabla</a>
+            <a href="#" class="square">bleble</a>
+
+
         </div>
     </div>
+    
 </body>
 </html>

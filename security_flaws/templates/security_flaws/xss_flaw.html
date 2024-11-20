@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faille XSS</title>
+    <title>XSS Vulnerability</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -87,22 +87,22 @@
 </head>
 <body>
     <div class="container">
-        <a href="{% url 'home' %}" class="back-button">⬅ Retour à l'accueil</a>
-        <h1>Exemple de faille XSS</h1>
-        <p>Ici, une faille XSS est illustrée. Faites attention aux entrées utilisateur non vérifiées !</p>
+        <a href="{% url 'home' %}" class="back-button">⬅ Back to home</a>
+        <h1>Example of XSS Vulnerability</h1>
+        <p>Here, an XSS vulnerability is demonstrated. Beware of unvalidated user inputs!</p>
 
         <form method="get" action="{% url 'xss_flaw' %}">
-            <label for="user_input">Entrez un texte :</label>
+            <label for="user_input">Enter some text:</label>
             <input type="text" id="user_input" name="user_input">
-            <button type="submit">Envoyer</button>
+            <button type="submit">Submit</button>
         </form>
 
-        <h2>Affichage de l'entrée utilisateur :</h2>
+        <h2>Displaying user input:</h2>
         <p>{{ user_input|safe }}</p> 
         
-        <p>Essayez de saisir un code JavaScript comme :</p>
+        <p>Try entering JavaScript code like:</p>
         <p class="code-sample">&lt;script&gt;alert("XSS")&lt;/script&gt;</p>
-        <a href="{% url 'xss_fix' %}">Lien vers la correction</a>
+        <a href="{% url 'xss_fix' %}">Link to the fix</a>
     </div>
 </body>
 </html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Correction CSRF</title>
+    <title>CSRF Fix</title>
     <style>
         .container {
             max-width: 600px;
@@ -23,18 +23,18 @@
 </head>
 <body>
     <div class="container">
-        <a href="{% url 'home' %}" class="back-button">⬅ Retour à l'accueil</a>
-        <h1>Correction de la faille CSRF</h1>
-        <p>Cette page est protégée contre la faille CSRF : le formulaire inclut un token CSRF.</p>
+        <a href="{% url 'home' %}" class="back-button">⬅ Back to Home</a>
+        <h1>CSRF Vulnerability Fix</h1>
+        <p>This page is protected against the CSRF vulnerability: the form includes a CSRF token.</p>
         
         <form method="post" action="{% url 'csrf_fix' %}">
             {% csrf_token %}
-            <label for="user_data">Entrez des données :</label>
+            <label for="user_data">Enter data:</label>
             <input type="text" id="user_data" name="user_data">
-            <button type="submit">Envoyer</button>
+            <button type="submit">Submit</button>
         </form>
 
-        <p><a href="{% url 'csrf_flaw' %}">Voir la version vulnérable de cette faille</a></p>
+        <p><a href="{% url 'csrf_flaw' %}">See the vulnerable version of this flaw</a></p>
     </div>
 </body>
 </html>

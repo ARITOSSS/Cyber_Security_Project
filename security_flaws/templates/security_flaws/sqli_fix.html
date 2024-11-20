@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correction SQL Injection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-button:hover {
+            background-color: #388E3C;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'home' %}" class="back-button">⬅ Back to home</a>
+        <h1>SQL Injection Fix</h1>
+        <p>This page fixes the SQLi vulnerability by securing user inputs using query parameters.</p>
+        <p>Only a valid username and password will work here, for example: user1/password1</p>
+        
+        <form method="get" action="{% url 'sqli_fix' %}">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Example: admin">
+            <br>
+            <label for="password">Password:</label>
+            <input type="text" id="password" name="password" placeholder="Example: admin123">
+            <br>
+            <button type="submit">Log in</button>
+        </form>
+
+        <h2>Result:</h2>
+        <pre>{{ user_data }}</pre>
+        {% if error %}
+            <p style="color: red;">Error: {{ error }}</p>
+        {% endif %}
+
+        <p><a href="{% url 'sqli_flaw' %}">See the vulnerable version of this flaw</a></p>
+    </div>
+</body>
+
+</html>
