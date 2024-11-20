@@ -9,5 +9,7 @@ urlpatterns = [
     path('csrf_fix/', views.csrf_fix, name='csrf_fix'),
     path('sqli_flaw/', views.sqli_flaw, name='sqli_flaw'),
     path('sqli_fix/', views.sqli_fix, name='sqli_fix'),
+    path('user/<int:user_id>/', views.user_idor_flaw, name='user_idor_flaw'),
+    path('user/secure/<int:user_id>/', views.user_idor_fix, name='user_idor_fix'),
 
 ]

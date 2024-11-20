@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil sécurisé</title>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ user.name }}</h1>
+        <p><strong>Email :</strong> {{ user.email }}</p>
+        <p><strong>Bio :</strong> {{ user.bio }}</p>
+        <a href="{% url 'home' %}">Retour à l'accueil</a>
+    </div>
+</body>
+</html>

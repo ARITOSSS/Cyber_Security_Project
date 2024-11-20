@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.db import connection
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
+from .models import UserIDOR
 # Create your views here.
 
 
@@ -18,13 +21,13 @@ def xss_fix(request):
 def csrf_flaw(request):
     if request.method == 'POST':
         user_data = request.POST.get('user_data', '')
-        return HttpResponse(f"Données reçues : {user_data}")
+        return HttpResponse(f"Data received : {user_data}")
     return render(request, 'security_flaws/csrf_flaw.html')
 
 def csrf_fix(request):
     if request.method == 'POST':
         user_data = request.POST.get('user_data', '')
-        return HttpResponse(f"Données reçues : {user_data}")
+        return HttpResponse(f"Data received : {user_data}")
     return render(request, 'security_flaws/csrf_fix.html')
 
 def sqli_flaw(request):
@@ -35,11 +38,10 @@ def sqli_flaw(request):
         password = request.GET.get('password', '')
 
         try:
-            # Requête SQL brute vulnérable
             query = f"SELECT * FROM security_flaws_user WHERE username = '{username}' AND password = '{password}';"
             with connection.cursor() as cursor:
                 cursor.execute(query)
-                user_data = cursor.fetchall()  # Retourne une liste de tuples
+                user_data = cursor.fetchall()  
         except Exception as e:
             error = str(e)
 
@@ -53,12 +55,26 @@ def sqli_fix(request):
         password = request.GET.get('password', '')
 
         try:
-            # Requête sécurisée avec des paramètres
             query = "SELECT * FROM security_flaws_user WHERE username = %s AND password = %s;"
             with connection.cursor() as cursor:
-                cursor.execute(query, [username, password])  # Paramètres sécurisés
+                cursor.execute(query, [username, password]) 
                 user_data = cursor.fetchall()
         except Exception as e:
             error = str(e)
 
     return render(request, 'security_flaws/sqli_fix.html', {'user_data': user_data, 'error': error})
+
+def user_idor_flaw(request,user_id):
+    user = get_object_or_404(UserIDOR, id=user_id)
+    return render(request, 'security_flaws/user_idor_flaw.html', {'user': user})
+
+@login_required
+def user_idor_fix(request,user_id):
+    try :
+        user = UserIDOR.objects.get(id=user_id)
+        if user!=request.user:
+            raise Http404("Accès refusé")
+    except UserIDOR.DoesNotExist:
+        raise Http404("Utilisateur introuvable")
+    
+    return render(request, 'security_flaws/user_idor_fix.html', {'user': user})

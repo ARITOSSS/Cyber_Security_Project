@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example of IDOR Vulnerability</title>
+    <style>
+        .user-info {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .vulnerability-info {
+            background-color: #ffcccc;
+            padding: 15px;
+            border-radius: 5px;
+            color: #d80000;
+            font-weight: bold;
+        }
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="user-info">
+            <h1>{{ user.name }}</h1>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Bio:</strong> {{ user.bio }}</p>
+        </div>
+        
+        <div class="vulnerability-info">
+            <p><strong>Notice:</strong> Here, we are accessing data that doesn't belong to us because we are not authenticated, which is not normal.</p>
+            <p>The fix may appear not to work because you're not authenticated, which is why access is being denied.</p>
+            <p><strong>How it works:</strong> You can simply change the number in the URL to "2" to view the second user in the database.</p>
+        </div>
+
+        <a href="{% url 'home' %}">Back to Home</a>
+    </div>
+</body>
+</html>
