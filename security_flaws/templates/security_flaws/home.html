@@ -69,7 +69,7 @@
             <a href="{% url 'sqli_flaw' %}" class="square">SQL Injection Vulnerability</a>
         
             <a href="{% url 'user_idor_flaw' user_id=1 %}" class="square">IDOR Vulnerable (Broken access control) </a> <!-- Remplacez 1 par un ID d'utilisateur existant -->
-            <a href="#" class="square">bleble</a>
+            <a href="{% url 'file_upload_flaw' %}" class="square">File Upload Vulnerable</a>
 
             <a href="{% url 'xss_fix' %}" class="square">XSS Fix</a>
             <a href="{% url 'csrf_fix' %}" class="square">CSRF Fix</a>
@@ -77,7 +77,7 @@
         
             <a href="{% url 'user_idor_fix' user_id=1 %}" class="square">IDOR Fix (I don't seem to be working, check my flaw :) )</a> <!-- Remplacez 1 par un ID d'utilisateur existant -->
         
-            <a href="#" class="square">bleble</a>
+            <a href="{% url 'file_upload_fix' %}" class="square">File Upload Fix</a>
         </div>
         
     </div>

@@ -3,7 +3,11 @@ from django.http import HttpResponse
 from django.db import connection
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from .models import UserIDOR
+from .models import UserIDOR, UploadedFile
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponseBadRequest
+
+
 # Create your views here.
 
 
@@ -78,3 +82,24 @@ def user_idor_fix(request,user_id):
         raise Http404("Utilisateur introuvable")
     
     return render(request, 'security_flaws/user_idor_fix.html', {'user': user})
+
+def file_upload_flaw(request):
+    if request.method == 'POST' and request.FILES['file']:
+        uploaded_file = request.FILES['file']
+        fs = FileSystemStorage()
+        file_path = fs.save(uploaded_file.name, uploaded_file)
+        UploadedFile.objects.create(file=file_path)
+        return render(request, 'security_flaws/file_upload_flaw.html', {'uploaded_file': uploaded_file})
+    return render(request, 'security_flaws/file_upload_flaw.html')
+
+def file_upload_fix(request):
+    if request.method == 'POST' and request.FILES['file']:
+        uploaded_file = request.FILES['file']
+        # Valider le type MIME du fichier (uniquement images ou PDF dans cet exemple)
+        if uploaded_file.content_type not in ['image/jpeg', 'image/png', 'application/pdf']:
+            return HttpResponseBadRequest("Type de fichier non autorisé. Seuls les images et PDF sont autorisés.")
+        fs = FileSystemStorage()
+        file_path = fs.save(uploaded_file.name, uploaded_file)
+        UploadedFile.objects.create(file=file_path)
+        return render(request, 'security_flaws/file_upload_fix.html', {'uploaded_file': uploaded_file})
+    return render(request, 'security_flaws/file_upload_fix.html')
