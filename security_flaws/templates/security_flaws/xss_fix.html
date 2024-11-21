@@ -87,22 +87,22 @@
 </head>
 <body>
     <div class="container">
-        <a href="{% url 'home' %}" class="back-button">⬅ Back to home</a>
-        <h1>Example of XSS Vulnerability</h1>
-        <p>Here, an XSS vulnerability is illustrated. Beware of unvalidated user inputs!</p>
+        <a href="{% url 'home' %}" class="back-button">⬅ Back to Home</a>
+        <h1>Fixing the XSS Vulnerability</h1>
+        <p>Here, the XSS vulnerability has been fixed. All user inputs are properly escaped.</p>
 
-        <form method="get" action="{% url 'xss_flaw' %}">
+        <form method="get" action="{% url 'xss_fix' %}">
             <label for="user_input">Enter some text:</label>
             <input type="text" id="user_input" name="user_input">
             <button type="submit">Submit</button>
         </form>
 
-        <h2>Displaying user input:</h2>
-        <p>{{ user_input|safe }}</p> 
+        <h2>User Input Display:</h2>
+        <p>{{ user_input }}</p> 
         
         <p>Try entering JavaScript code like:</p>
         <p class="code-sample">&lt;script&gt;alert("XSS")&lt;/script&gt;</p>
-        <a href="{% url 'xss_fix' %}">Link to the fix</a>
+        <a href="{% url 'xss_flaw' %}">Link to the vulnerability</a>
     </div>
 </body>
 

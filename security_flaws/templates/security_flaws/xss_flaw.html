@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XSS Vulnerability</title>
+    <title>Faille XSS</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -87,9 +87,9 @@
 </head>
 <body>
     <div class="container">
-        <a href="{% url 'home' %}" class="back-button">⬅ Back to home</a>
+        <a href="{% url 'home' %}" class="back-button">⬅ Back to Home</a>
         <h1>Example of XSS Vulnerability</h1>
-        <p>Here, an XSS vulnerability is demonstrated. Beware of unvalidated user inputs!</p>
+        <p>This demonstrates an XSS vulnerability. Be careful with unvalidated user inputs!</p>
 
         <form method="get" action="{% url 'xss_flaw' %}">
             <label for="user_input">Enter some text:</label>
@@ -97,7 +97,7 @@
             <button type="submit">Submit</button>
         </form>
 
-        <h2>Displaying user input:</h2>
+        <h2>User Input Display:</h2>
         <p>{{ user_input|safe }}</p> 
         
         <p>Try entering JavaScript code like:</p>
@@ -105,4 +105,5 @@
         <a href="{% url 'xss_fix' %}">Link to the fix</a>
     </div>
 </body>
+
 </html>

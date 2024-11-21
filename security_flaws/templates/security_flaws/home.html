@@ -66,14 +66,14 @@
             <!-- XSS Vulnerability -->
             <a href="{% url 'xss_flaw' %}" class="square">XSS Vulnerability</a>
             <a href="{% url 'csrf_flaw' %}" class="square">CSRF Vulnerability</a>
-            <a href="{% url 'sqli_flaw' %}" class="square">SQLi Vulnerability</a>
+            <a href="{% url 'sqli_flaw' %}" class="square">SQL Injection Vulnerability</a>
         
-            <a href="{% url 'user_idor_flaw' user_id=1 %}" class="square">IDOR Vulnerable</a> <!-- Remplacez 1 par un ID d'utilisateur existant -->
+            <a href="{% url 'user_idor_flaw' user_id=1 %}" class="square">IDOR Vulnerable (Broken access control) </a> <!-- Remplacez 1 par un ID d'utilisateur existant -->
             <a href="#" class="square">bleble</a>
 
             <a href="{% url 'xss_fix' %}" class="square">XSS Fix</a>
             <a href="{% url 'csrf_fix' %}" class="square">CSRF Fix</a>
-            <a href="{% url 'sqli_fix' %}" class="square">SQLi Fix</a>
+            <a href="{% url 'sqli_fix' %}" class="square">SQL Injection Fix</a>
         
             <a href="{% url 'user_idor_fix' user_id=1 %}" class="square">IDOR Fix (I don't seem to be working, check my flaw :) )</a> <!-- Remplacez 1 par un ID d'utilisateur existant -->
         
