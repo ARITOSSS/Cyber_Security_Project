@@ -13,7 +13,7 @@ pip install Django
 python manage.py migrate
 python manage.py createsuperuser (If you want to modify some things)
 python manage.py runserver
-'''
+
 
 
 
