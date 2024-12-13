@@ -13,8 +13,9 @@ urlpatterns = [
     path('sqli_fix/', views.sqli_fix, name='sqli_fix'),
     path('user/<int:user_id>/', views.user_idor_flaw, name='user_idor_flaw'),
     path('user/secure/<int:user_id>/', views.user_idor_fix, name='user_idor_fix'),
-    path('file_upload_flaw/', views.file_upload_flaw, name='file_upload_flaw'),
-    path('file_upload_fix/', views.file_upload_fix, name='file_upload_fix'),
+    path('deserialization_flaw/', views.deserialization_flaw, name='deserialization_flaw'),
+    path('deserialization_fix/', views.deserialization_fix, name='deserialization_fix'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

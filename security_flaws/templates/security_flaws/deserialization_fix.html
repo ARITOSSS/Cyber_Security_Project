@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Deserialization (Fix)</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'home' %}" class="back-button">⬅ Back to Home</a>
+        <h1>Example of JSON Deserialization Fix</h1>
+        <p>This page demonstrates a secure version using JSON deserialization: you can upload a JSON file.</p>
+        <p>JSON file can also be created with python but they are secured and can't be malicious.</p>
+        
+        <form method="post" enctype="multipart/form-data" action="{% url 'deserialization_fix' %}">
+            {% csrf_token %}
+            <label for="user_file">Choose a JSON File:</label>
+            <input type="file" id="user_file" name="user_file" accept=".json">
+            <button type="submit">Upload File</button>
+        </form>
+
+        <p><a href="{% url 'deserialization_flaw' %}">See the vulnerable version with pickle</a></p>
+    </div>
+</body>
+</html>

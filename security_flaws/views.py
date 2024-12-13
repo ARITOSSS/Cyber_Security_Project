@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseBadRequest
 from django.db import connection
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from .models import UserIDOR, UploadedFile
-from django.core.files.storage import FileSystemStorage
+from .models import UserIDOR
 from django.http import HttpResponseBadRequest
+from django.views.decorators.csrf import csrf_exempt  
+import pickle
+import json
+
 
 
 # Create your views here.
@@ -22,6 +25,7 @@ def xss_fix(request):
     user_input = request.GET.get('user_input','')
     return render(request, 'security_flaws/xss_fix.html' , {'user_input': user_input})
 
+@csrf_exempt
 def csrf_flaw(request):
     if request.method == 'POST':
         user_data = request.POST.get('user_data', '')
@@ -83,23 +87,27 @@ def user_idor_fix(request,user_id):
     
     return render(request, 'security_flaws/user_idor_fix.html', {'user': user})
 
-def file_upload_flaw(request):
-    if request.method == 'POST' and request.FILES['file']:
-        uploaded_file = request.FILES['file']
-        fs = FileSystemStorage()
-        file_path = fs.save(uploaded_file.name, uploaded_file)
-        UploadedFile.objects.create(file=file_path)
-        return render(request, 'security_flaws/file_upload_flaw.html', {'uploaded_file': uploaded_file})
-    return render(request, 'security_flaws/file_upload_flaw.html')
+def deserialization_flaw(request):
+    if request.method == 'POST' and request.FILES.get('user_file'):
+        try:
+            user_file = request.FILES['user_file']
+            file_content = user_file.read()
 
-def file_upload_fix(request):
-    if request.method == 'POST' and request.FILES['file']:
-        uploaded_file = request.FILES['file']
-        # Valider le type MIME du fichier (uniquement images ou PDF dans cet exemple)
-        if uploaded_file.content_type not in ['image/jpeg', 'image/png', 'application/pdf']:
-            return HttpResponseBadRequest("Type de fichier non autorisé. Seuls les images et PDF sont autorisés.")
-        fs = FileSystemStorage()
-        file_path = fs.save(uploaded_file.name, uploaded_file)
-        UploadedFile.objects.create(file=file_path)
-        return render(request, 'security_flaws/file_upload_fix.html', {'uploaded_file': uploaded_file})
-    return render(request, 'security_flaws/file_upload_fix.html')
+            deserialized_data = pickle.loads(file_content)
+            return HttpResponse(f"Data received: {deserialized_data}")
+        except (pickle.UnpicklingError, Exception) as e:
+            return HttpResponseBadRequest(f"Pickle error: {str(e)}")
+    
+    return render(request, 'security_flaws/deserialization_flaw.html')
+
+def deserialization_fix(request):
+    if request.method == 'POST' and request.FILES.get('user_file'):
+        try:
+            user_file = request.FILES['user_file']
+            file_content = user_file.read().decode('utf-8')
+            deserialized_data = json.loads(file_content)
+            return HttpResponse(f"Data received: {deserialized_data}")
+        except (json.JSONDecodeError, Exception) as e:
+            return HttpResponseBadRequest(f"JSON error: {str(e)}")
+    
+    return render(request, 'security_flaws/deserialization_fix.html')
